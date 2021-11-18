@@ -1,15 +1,12 @@
-if __name__== "__main__":
-    name = input("Enter your name: ")
-    print("Nice to meet you", name)
-
-    print("Where are you from?")
-    city = input()
-
-    #Convert numbers to ints
-    age = int(input("How old are you? "))
-
-    #By default, an int will look like a string, so we're doing
-    #this to show that the age can be manipulated
-    futureAge = age + 10
-
-    print("In 10 years,", name, "will be", futureAge, "years old, but will still be from", city, ".")
+if __name__=="__main__":
+    print("Hello, what is your name?")
+    x = input()
+    print("Nice to meet you, " + x)
+    
+    print("How old are you right now?")
+    y = int(input())
+    z = y + 10
+    print("Nice to meet you, ", x + ". You are currently " + str(y) + " years old and will be " + str(z) + " years old in 10 years")
+    
+    a = input("What college do you go to? ")
+    print("Good job " + x + " on your accomplishments at " + a)
