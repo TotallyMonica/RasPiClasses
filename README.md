@@ -10,3 +10,6 @@ Raspberry Pi (In the workshop, we use the Pi 4 4GB model, although Pis with GPIO
 # To work on:
 You can either download the project within the web browser or use the following command:
 `git clone https://github.com/TotallyMonica/RasPiClasses`
+
+# Discord server
+The Discord server can be accessed through the discovery tab on Discord or the invite on your Raspberry Pi.
