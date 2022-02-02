@@ -31,8 +31,16 @@ def BuildSchedule ():
         # Prompt user if they would like to add another class
         print("Would you like to add another class? (y/N)")
         completeCheck = input()
+    
+    sourceFile = open('schedule.txt', 'w')
+    for i in studentSchedule:
+        sourceFile.write(i + ",")
+    sourceFile.close
 
 def ListSchedule ():
+    with open('schedule.txt') as f:
+        studentSchedule = f.split(",")
+
     for i in studentSchedule:
         classInfo = studentSchedule[i].split("_")
         print(f"Class: {classInfo[0]}")
@@ -40,5 +48,15 @@ def ListSchedule ():
         print(f"Days of week: {classInfo[3]}")
 
 if __name__ == "__main__":
-    BuildSchedule()
-    ListSchedule()
+    run = True
+    while(run):
+        print("Would you like to build your schedule, list your current schedule, or quit?")
+        userInput = input()
+        if (userInput.toLower().contains("build")):
+            BuildSchedule()
+        elif (userInput.toLower().contains("list")):
+            ListSchedule()
+        elif (userInput.toLower().contains("quit")):
+            run = False
+        else:
+            print("Invalid input.")
