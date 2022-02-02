@@ -1,2 +1,0 @@
-Department = ["AEP", "ATG", "AAS", "ANT", "APL", "WLA", "ART", "AST", "BIO", "BMS", "BUS", "BLW", "CHM", "WLC", "C E", "COM", "CFA", "CIS", "CS", "CON", "CRM", "ECO", "EHS", "ENC", "ETE", "ECE", "EGT", "ENG", "ENT", "SEI", "ENS", "FCS", "FIN", "WLF", "GES", "GRD", "HIS", "HON", "IME", "I M", "I B", "KHS", "WLL", "LAS", "MIS", "M L", "IMT", "MTG", "MTH", "M E", "M S", "MUS", "MED", "NEU", "NUR", "OCP", "P T", "PHY", "I S", "PLS", "PLW", "PSY", "Q M", "RLS", "SCI", "S W", "SOC", "WLS", "THE", "CIV", "WGS", "WLT"]
-Department[]
