@@ -38,3 +38,7 @@ def ListSchedule ():
         print(f"Class: {classInfo[0]}")
         print(f"Time: {classInfo[1]} - {classInfo[2]}")
         print(f"Days of week: {classInfo[3]}")
+
+if __name__ == "__main__":
+    BuildSchedule()
+    ListSchedule()
