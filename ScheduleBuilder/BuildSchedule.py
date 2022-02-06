@@ -3,6 +3,7 @@ import time
 
 #Globally used variables
 gpioPins = [int(4), int(5), int(6), int(12), int(13), int(16), int(17), int(18), int(19), int(20), int(21), int(22), int(23), int(24), int(25), int(26), int(27)]
+ledList = []
 studentSchedule = []
 useLEDs = int(0)
 
@@ -56,8 +57,10 @@ def ListSchedule ():
 def gpioUsage ():
     # Note: not using a boolean due to multiple potential outcomes
     # Outcome 1: Potential typo, reiterating it. This would be int(0).
-    # Outcome 2: User has LEDs connected. This would be int(1).
-    # Outcome 3: Uesr does not have LEDs connected and/or does not want to use LEDs. This would be int(2).
+    # Outcome 2: User does not have LEDs connected and/or does not want to use LEDs. This would be int(1).
+    # Outcome 3: User has LEDs connected. This would be int(2).
+    # Concerning outcome 3, this also doubles as a check for how many LEDs should get used.
+    # The LED count should be n-1, where n is the number set in useLEDs.
 
     while useLEDs == 0:
         print("Are LEDs connected to the Pi? (y/n)")
@@ -96,23 +99,42 @@ def findGpioPins ():
 
     # Loop while not all of the desired LEDs have been set
     while not ledsSet:
-
         scanPin = True
         
+        #Right now, it only makes sense for us to have 2 leds, so automatically exit if the user says they want more than that.
+        if useLEDs >= 3:
+            print ("Only have functionality for 2 LEDs. Leaving the LED tester program")
+            scanPin = False
+            ledsSet = True
+
         # LED Scan test
         while scanPin:
+
+            # Telling the user what LED the're working on right now, and giving default color suggestions
+            if useLEDs == 2:
+                print("You're trying to find the first LED that will be used for recording your schedule.")
+                print("Default recommendation is to use a red LED if that's available for you")
+            elif useLEDs == 3:
+                print("You're trying to find the second LED that will be used for displaying your schedule.")
+                print("Default recommendation is to use a green LED if that's available for you")
+            
+            # Realistically this shouldn't happen, this is moreof serving as a template
+            else:
+                print("You're trying to find the nth LED that will be used for ___.")
+                print("Default recommendation is to use a _____ LED if that's available for you.")
 
             # Iterate all of the GPIO pins in list gpioPins
             for i in gpioPins:
 
                 #Set pin to high, then have user confirm whether the desired LED is on
                 GPIO.output(i, GPIO.HIGH)
-                print("Is the first LED turned on?")
-                print("If you're following our recommendation, this should be your red one.")
+                print("Is the LED turned on?")
                 pin1Set = input("(y/N): ")
                 
                 # Yes, set stop the scan test
                 if pin1Set.toUpper().contains("Y"):
+                    useLEDs = useLEDs + 1
+                    ledList.append(i)
                     scanPin = False
 
                 else:
@@ -155,9 +177,17 @@ if __name__ == "__main__":
         print("Would you like to build your schedule, list your current schedule, or quit?")
         userInput = input()
         if (userInput.toLower().contains("build")):
+            if useLEDs > 2:
+                GPIO.output(ledList[0], GPIO.HIGH)
             BuildSchedule()
+            if useLEDs > 2:
+                GPIO.output(ledList[0], GPIO.LOW)
         elif (userInput.toLower().contains("list")):
+            if useLEDs == 2:
+                GPIO.output(ledList[2], GPIO.HIGH)
             ListSchedule()
+            if useLEDs == 2:
+                GPIO.output(ledList[2], GPIO.LOW)
         elif (userInput.toLower().contains("quit")):
             run = False
         else:
